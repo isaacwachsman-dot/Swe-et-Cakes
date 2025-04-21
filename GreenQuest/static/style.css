@@ -6,9 +6,45 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #000000; /* Light neutral background */
+    background-color:#fffff0; /* Light neutral background */
     font-family: 'Arial', sans-serif; /* Clean and modern font */
 }
+
+.dashboard-header {
+    background-color: white;
+    padding: 20px 40px;
+    border-radius: 0; /* Remove rounded corners */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    width: 100%; /* Full width */
+    text-align: center; /* Align content to the left */
+    border-bottom: 2px solid #98FF98; /* Border only on bottom */
+    position: relative; /* Keep it at the top if you scroll */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Stay above other content */
+}
+
+/* Style only the logout button in the dashboard header */
+.dashboard-header form button {
+    padding: 5px 15px; /* Smaller padding */
+    background-color: #98FF98;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 14px; /* Smaller font size */
+    position: absolute; /* Position the button absolutely */
+    top: 10px; /* Space from the top */
+    right: 10px; /* Space from the right */
+}
+
+.dashboard-header form button:hover {
+    background-color: #76D7C4;
+    transform: translateY(-2px);
+}
+
 
 /* Login container */
 .login-container {
@@ -24,8 +60,8 @@ html, body {
 /* Header styling */
 h1 {
     font-size: 26px;
-    color: #98FF98; /* Mint green header */
-    font-weight: 400;
+    color: #090909; /* Mint green header */
+    font-weight: 700;
     margin-bottom: 30px;
 }
 
