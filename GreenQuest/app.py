@@ -81,11 +81,52 @@ def dashboard():
     
     return redirect(url_for('login'))
 
-@app.route('/logout')
+@app.route('/quizzes', methods = ['GET', 'POST'])
+def quizzes():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM quizzes")
+    quizzes = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template("quizzes.html", quizzes = quizzes)
+
+@app.route('/logout', methods=['GET', 'POST'])
 def logout():
     session.pop('user_id', None)
     session.pop('username', None)
     return redirect(url_for('login'))
+
+@app.route('/take_quiz/<int:id>', methods = ['GET', 'POST'])
+def take_quiz(id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM quizzes WHERE quiz_id = %s", (id,))
+    quiz = cursor.fetchone()
+    cursor.close()
+    conn.close()
+
+    return render_template("quiz.html", quiz = quiz)
+
+@app.route('/makeQuiz', methods = ['GET', 'POST'])
+def makeQuiz():
+    if request.method == 'POST':
+        quiz_name= request.form['quiz_name']
+        q1 = request.form['q1'] + ";" + request.form['q1_choice1'] + ";" + request.form['q1_choice2'] + ";" + request.form['q1_choice3'] + ";" + request.form['q1_choice4']
+        q2 = request.form['q2'] + ";" + request.form['q2_choice1'] + ";" + request.form['q2_choice2'] + ";" + request.form['q2_choice3'] + ";" + request.form['q2_choice4']
+        q3 = request.form['q3'] + ";" + request.form['q3_choice1'] + ";" + request.form['q3_choice2'] + ";" + request.form['q3_choice3'] + ";" + request.form['q3_choice4']
+        answers = request.form['q1_correct'] + request.form['q2_correct'] + request.form['q3_correct']
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        cur.execute("INSERT INTO quizzes (quiz_name, q1, q2, q3, answer_sequence) VALUES (%s, %s, %s, %s, %s)",
+                    (quiz_name, q1, q2, q3, answers))
+        conn.commit()
+        cur.close()
+        conn.close()
+        
+        return redirect(url_for('quizzes'))
+    return render_template("makeQuiz.html")
 
 if __name__ == '__main__':
     app.run(debug=True)

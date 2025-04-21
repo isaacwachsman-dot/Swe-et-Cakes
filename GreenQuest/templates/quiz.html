@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">GreenQuest</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('dashboard')}}">Dashboard</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Quizzes</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+
+      <div class="quiz-container">
+        <h2 id="quiz-title"> {{quiz[1]}}</h2>
+    
+        <div class="question-container">
+            <p id="question-text">{{quiz[2].split(";")[0]}} </p>
+            <select id = "q1" name = "q1">
+                <option value = "A"> {{quiz[2].split(";")[1]}}</option>
+                <option value = "B"> {{quiz[2].split(";")[2]}}</option>
+                <option value = "C"> {{quiz[2].split(";")[3]}}</option>
+                <option value = "D"> {{quiz[2].split(";")[4]}}</option>
+            </select>
+        </div>
+
+        <div class="question-container">
+          <p id="question-text">{{quiz[3].split(";")[0]}} </p>
+          <select id = "q2" name = "q2">
+            <option value = "A"> {{quiz[3].split(";")[1]}}</option>
+            <option value = "B"> {{quiz[3].split(";")[2]}}</option>
+            <option value = "C"> {{quiz[3].split(";")[3]}}</option>
+            <option value = "D"> {{quiz[3].split(";")[4]}}</option>
+            </select>
+        </div>
+
+        <div class="question-container">
+          <p id="question-text">{{quiz[4].split(";")[0]}} </p>
+          <select id = "q3" name = "q3">
+            <option value = "A"> {{quiz[4].split(";")[1]}}</option>
+            <option value = "B"> {{quiz[4].split(";")[2]}}</option>
+            <option value = "C"> {{quiz[4].split(";")[3]}}</option>
+            <option value = "D"> {{quiz[4].split(";")[4]}}</option>
+            </select>
+        </div>
+
+        
+        <p id = "quiz-grade"> Grade: ungraded / 3 </p>
+    
+        <button onclick = "gradeQuiz()" id="submit-btn">Submit</button>
+            
+    </div>
+
+    <script>
+        function gradeQuiz()
+        {
+            const check = [document.getElementById('q1').value == "D", document.getElementById('q2').value == "A"];
+            let correct = check.filter(Boolean).length;
+            document.getElementById('quiz-grade').innerHTML = "Grade: " + correct + " / 2";
+
+            if(correct == 2)
+            {
+                document.getElementById('quiz-grade').style.color = "green";
+            }
+            else
+            {
+                document.getElementById('quiz-grade').style.color = "red";
+            }
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+
+    <a href = "{{url_for('dashboard')}}"> Dashboard </a>
+
+    <form method = "POST" style = "font-size: 10px">
+        <label>Quiz Name: <input type="text" name="quiz_name" required></label><br>
+
+        <label>Question 1: <input type="text" name="q1" required></label><br>
+        <label>Q1 Choice 1: <input type="text" name="q1_choice1" required></label><br>
+        <label>Q1 Choice 2: <input type="text" name="q1_choice2" required></label><br>
+        <label>Q1 Choice 3: <input type="text" name="q1_choice3" required></label><br>
+        <label>Q1 Choice 4: <input type="text" name="q1_choice4" required></label><br>
+        <label>Q1 Correct (A–D): <input type="text" name="q1_correct" maxlength="1" required></label><br>
+
+        <label>Question 2: <input type="text" name="q2" required></label><br>
+        <label>Q2 Choice 1: <input type="text" name="q2_choice1" required></label><br>
+        <label>Q2 Choice 2: <input type="text" name="q2_choice2" required></label><br>
+        <label>Q2 Choice 3: <input type="text" name="q2_choice3" required></label><br>
+        <label>Q2 Choice 4: <input type="text" name="q2_choice4" required></label><br>
+        <label>Q2 Correct (A–D): <input type="text" name="q2_correct" maxlength="1" required></label><br>
+
+        <label>Question 3: <input type="text" name="q3" required></label><br>
+        <label>Q3 Choice 1: <input type="text" name="q3_choice1" required></label><br>
+        <label>Q3 Choice 2: <input type="text" name="q3_choice2" required></label><br>
+        <label>Q3 Choice 3: <input type="text" name="q3_choice3" required></label><br>
+        <label>Q3 Choice 4: <input type="text" name="q3_choice4" required></label><br>
+        <label>Q3 Correct (A–D): <input type="text" name="q3_correct" maxlength="1" required></label><br>
+
+        <button type="submit">Create Quiz</button>
+
+    </form>
+            
+    </div>
+
+
+    
+</body>
+</html>
