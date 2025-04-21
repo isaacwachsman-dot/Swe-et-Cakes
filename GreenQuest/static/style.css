@@ -1,32 +1,30 @@
-/* General body styling */
 html, body {
-    height: 100%; /* Ensure full height for both html and body */
+    height: 100%; 
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:#fffff0; /* Light neutral background */
-    font-family: 'Arial', sans-serif; /* Clean and modern font */
+    background-color:#fffff0; 
+    font-family: 'Arial', sans-serif; 
 }
 
 .dashboard-header {
     background-color: white;
     padding: 20px 40px;
-    border-radius: 0; /* Remove rounded corners */
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
-    width: 100%; /* Full width */
-    text-align: center; /* Align content to the left */
-    border-bottom: 2px solid #98FF98; /* Border only on bottom */
-    position: relative; /* Keep it at the top if you scroll */
+    border-radius: 0; 
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); 
+    width: 100%; 
+    text-align: center; 
+    border-bottom: 2px solid #98FF98; 
+    position: relative; 
     top: 0;
     left: 0;
-    z-index: 1000; /* Stay above other content */
+    z-index: 1000;
 }
 
-/* Style only the logout button in the dashboard header */
 .dashboard-header form button {
-    padding: 5px 15px; /* Smaller padding */
+    padding: 5px 15px; 
     background-color: #98FF98;
     color: white;
     border: none;
@@ -34,10 +32,10 @@ html, body {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    font-size: 14px; /* Smaller font size */
-    position: absolute; /* Position the button absolutely */
-    top: 10px; /* Space from the top */
-    right: 10px; /* Space from the right */
+    font-size: 14px; 
+    position: absolute; 
+    top: 10px; 
+    right: 10px; 
 }
 
 .dashboard-header form button:hover {
@@ -45,51 +43,48 @@ html, body {
     transform: translateY(-2px);
 }
 
-
-/* Login container */
 .login-container {
     background-color: white;
     padding: 30px 40px;
     border-radius: 10px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    width: 350px; /* Slightly wider */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); 
+    width: 350px; 
     text-align: center;
-    border: 1px solid #98FF98; /* Mint green border */
+    border: 1px solid #98FF98; 
 }
 
-/* Header styling */
+
 h1 {
     font-size: 26px;
-    color: #090909; /* Mint green header */
+    color: #090909; 
     font-weight: 700;
     margin-bottom: 30px;
 }
 
-/* Input fields */
 input[type="text"],
 input[type="password"] {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
-    background-color: #f4f7f6; /* Light gray background for inputs */
-    border: 2px solid #98FF98; /* Mint green border */
+    background-color: #f4f7f6; 
+    border: 2px solid #98FF98; 
     color: #333;
     font-size: 16px;
     border-radius: 5px;
-    transition: border-color 0.3s ease; /* Smooth border color change */
+    transition: border-color 0.3s ease; 
 }
 
 input[type="text"]:focus,
 input[type="password"]:focus {
-    border-color: #76D7C4; /* Slightly darker mint green when focused */
-    outline: none; /* Remove default outline */
+    border-color: #76D7C4;
+    outline: none; 
 }
 
-/* Submit button */
+
 button {
     width: 100%;
     padding: 12px;
-    background-color: #98FF98; /* Mint green background */
+    background-color: #98FF98; 
     border: none;
     color: white;
     font-size: 16px;
@@ -99,13 +94,11 @@ button {
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-/* Button hover effect */
 button:hover {
-    background-color: #76D7C4; /* Slightly darker mint on hover */
-    transform: translateY(-2px); /* Slight lift effect */
+    background-color: #76D7C4; 
+    transform: translateY(-2px); 
 }
 
-/* Mobile responsiveness */
 @media (max-width: 400px) {
     .login-container {
         width: 90%;

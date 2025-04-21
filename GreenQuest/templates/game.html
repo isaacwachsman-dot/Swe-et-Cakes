@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tree Conservation Game</title>
+  <style>
+    body {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-color: #333333;
+}
+canvas {
+    display: block;
+    margin-top: 0;
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-left: auto;
+    background-color: #000000;
+}
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas" width="400" height="600"></canvas>
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+    const player = {
+    x: (width / 2) - 15,
+    y: height - 100,
+    width: 30,
+    height: 30,
+    speed: 5
+    };
+    let trees = [];
+    const treeWidth = 50;
+    const treeHeight = 80;
+    const spawnInterval = 1500;
+    let lastSpawn = 0;
+    let score = 0;
+    let gameOver = false;
+    const keys = {};
+    window.addEventListener('keydown', function(e) {
+      keys[e.key] = true;
+    });
+    window.addEventListener('keyup', function(e) {
+      keys[e.key] = false;
+    });
+    window.addEventListener('keydown', e => {
+      if (gameOver && e.key === 'Enter') {
+        trees = [];
+        score = 0;
+        gameOver = false;
+        lastSpawn = 0;
+        lastTime = performance.now();
+      }
+    });
+    function treeSpawning() { // This make a new tree object at a random position when falling 
+      const x = Math.random() * (width - treeWidth);
+      const y = -treeHeight;
+      const tree = {
+        x: x,
+        y: y,
+        width: treeWidth,
+        height: treeHeight
+      };
+      trees.push(tree);
+    }
+    function update(deltaTime) { // This makes sure the game state updates after each frame 
+      if (gameOver === true) {
+        return;
+      }
+      const pressedLeft = keys['ArrowLeft'] === true;
+      const pressedRight = keys['ArrowRight'] === true;
+      if (pressedLeft) {
+        player.x -= player.speed;
+      }
+      if (pressedRight) {
+        player.x += player.speed;
+      }
+      const minX = 0;
+      const maxX = width - player.width;
+      player.x = Math.max(minX, Math.min(maxX, player.x));
+      trees.forEach(function(tree) {
+        tree.y += 200 * deltaTime;
+      });
+      let i = trees.length - 1;
+      while (i >= 0) {
+        const tree = trees[i];
+        if (tree.y > height) {
+          trees.splice(i, 1);
+          score += 1;
+        }
+        i--;
+      }
+      lastSpawn += deltaTime * 1000;
+      if (lastSpawn > spawnInterval) {
+        treeSpawning();
+        lastSpawn = 0;
+      }
+      trees.forEach(function(tree) {
+        const collision = collisionIntersect(player, tree);
+        if (collision === true) {
+          gameOver = true;
+        }
+      });
+    }
+    function draw() { // This makes sure everything shows up on the screen properly 
+      const skyGradient = ctx.createLinearGradient(0, 0, 0, height);
+      skyGradient.addColorStop(0, '#87ceeb'); 
+      skyGradient.addColorStop(1, '#b0e0e6'); 
+      ctx.fillStyle = skyGradient;
+      ctx.fillRect(0, 0, width, height);
+      ctx.fillStyle = '#228B22'; 
+      ctx.fillRect(0, height - 80, width, 80);
+      ctx.fillStyle = '#FFD700'; 
+      ctx.fillRect(player.x, player.y, player.width, player.height);
+      trees.forEach(function(tree) {
+        treeDraw(tree);
+      });
+      ctx.fillStyle = '#ffffff'; 
+      ctx.font = '20px sans-serif';
+      ctx.fillText('Score: ' + score, 10, 30);
+      if (gameOver === true) {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = '#ff0000'; 
+        ctx.font = '40px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Game Over', width / 2, height / 2 - 20);
+        ctx.fillText('Score: ' + score, width / 2, height / 2 + 40);
+        ctx.font = '16px sans-serif';
+        ctx.fillStyle = '#ffffff'; 
+        ctx.fillText('Press Enter to Restart', width / 2, height / 2 + 80);
+      }
+    }
+    function treeDraw(tree) { // This draws the tree canopy
+      const trunkW = tree.width * 0.3;
+      const trunkH = tree.height * 0.4;
+      const trunkX = tree.x + (tree.width - trunkW) / 2;
+      const trunkY = tree.y + tree.height - trunkH;
+      ctx.fillStyle = '#8B4513';
+      ctx.fillRect(trunkX, trunkY, trunkW, trunkH);
+      const canopyR = tree.width * 0.6;
+      ctx.fillStyle = '#006400';
+      ctx.beginPath();
+      ctx.arc(tree.x + tree.width/2, tree.y + canopyR/2, canopyR, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    function collisionIntersect(a, b) { // This checks if player or tree collide
+      hO = (a.x < b.x + b.width) && (a.x + a.width > b.x);
+      vO = (a.y < b.y + b.height) && (a.y + a.height > b.y);
+      if (hO && vO) {
+        return true;
+      } 
+      else {
+        return false;
+      }
+    }
+    let timeLast = performance.now(); // This calculates all the time in the game loop 
+    function gameLoop(currentt) {
+      let diff = currentt - timeLast;
+      let d = diff / 1000;
+      timeLast = currentt;
+      update(d);
+      draw();
+      requestAnimationFrame(gameLoop);
+    }
+    requestAnimationFrame(gameLoop);
+  </script>
+</body>
+</html>
