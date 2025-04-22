@@ -70,7 +70,9 @@
         function gradeQuiz()
         {
             let myAnswers = document.getElementById('q1').value + document.getElementById('q2').value + document.getElementById('q3').value;
-            let correctAnswers = {{quiz[5]}};
+            let correctAnswers = {{ quiz|tojson|safe}}[5];
+
+            console.log(correctAnswers)
 
             let score = 0;
             for(let i = 0; i < 3; i++)
@@ -80,9 +82,9 @@
                 score = score + 1;
               }
             }
-            document.getElementById('quiz-grade').innerHTML = "Grade: " + correct + " / 3";
+            document.getElementById('quiz-grade').innerHTML = "Grade: " + score + " / 3";
 
-            if(correct == 3)
+            if(score == 3)
             {
                 document.getElementById('quiz-grade').style.color = "green";
             }
