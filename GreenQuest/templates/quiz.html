@@ -69,11 +69,20 @@
     <script>
         function gradeQuiz()
         {
-            const check = [document.getElementById('q1').value == "D", document.getElementById('q2').value == "A"];
-            let correct = check.filter(Boolean).length;
-            document.getElementById('quiz-grade').innerHTML = "Grade: " + correct + " / 2";
+            let myAnswers = document.getElementById('q1').value + document.getElementById('q2').value + document.getElementById('q3').value;
+            let correctAnswers = {{quiz[5]}};
 
-            if(correct == 2)
+            let score = 0;
+            for(let i = 0; i < 3; i++)
+            {
+              if(myAnswers[i] == correctAnswers[i])
+              {
+                score = score + 1;
+              }
+            }
+            document.getElementById('quiz-grade').innerHTML = "Grade: " + correct + " / 3";
+
+            if(correct == 3)
             {
                 document.getElementById('quiz-grade').style.color = "green";
             }
