@@ -1,0 +1,25 @@
+CREATE TABLE quizzes (
+    quiz_id         SERIAL  PRIMARY KEY,
+    quiz_name       TEXT    NOT NULL,
+    q1              TEXT    NOT NULL,
+    q2              TEXT    NOT NULL,
+    q3              TEXT    NOT NULL,
+    answer_sequence TEXT    NOT NULL
+);
+
+
+
+CREATE TABLE users (
+    id          SERIAL PRIMARY KEY,
+    username    VARCHAR(100) NOT NULL UNIQUE,
+    password    VARCHAR(100) NOT NULL,
+    first_name  VARCHAR(100) NOT NULL
+);
+
+
+CREATE TABLE public.quiz_attempt (
+    quiz_id         INTEGER                NOT NULL,
+    username        VARCHAR(100)           NOT NULL,
+    answer_sequence TEXT                   NOT NULL,
+    score           INTEGER                NOT NULL
+);
